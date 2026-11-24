@@ -1,0 +1,794 @@
+/* White and blue workspace; the physical trainer keeps its green PCB palette. */
+:root {
+  color: #203956;
+  background: #edf3fb;
+  color-scheme: light;
+}
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+.app {
+  height: 100dvh;
+  overflow: hidden;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 64px 50px minmax(0, 1fr) minmax(
+      80px,
+      min(var(--desk-height), 24vh)
+    ) 24px;
+  color: #203956;
+  background: #edf3fb;
+  font-size: calc(14px * var(--text-scale));
+}
+.app :where(button, input, select, textarea):not(.pcb *) {
+  background: #fff;
+  color: #244873;
+  border-color: #c6d6eb;
+  font-size: calc(13px * var(--text-scale));
+}
+.app button:not(.pcb *):hover {
+  background: #e7f0ff;
+  border-color: #568bdd;
+}
+.app :where(input, textarea, select):focus {
+  outline-color: #2868d6;
+}
+.app :where(button, summary):focus-visible {
+  outline-color: #2868d6;
+}
+.app :where(input[type="range"], input[type="checkbox"]) {
+  accent-color: #2164ce;
+}
+.app :where(h2, h3) {
+  color: #345b89;
+  font-size: calc(12px * var(--text-scale));
+  letter-spacing: 1px;
+}
+.app .masthead {
+  height: auto;
+  padding: 0 18px;
+  background: #fff;
+  border-color: #cbd9ec;
+  gap: 12px;
+}
+.app .brand-icon {
+  color: #2464c8;
+  border-color: #91b4e9;
+  box-shadow: none;
+}
+.app .brand h1 {
+  color: #173d70;
+  font-size: 23px;
+}
+.app .brand h1 > span {
+  color: #5179ad;
+}
+.app .brand small,
+.app .brand p {
+  color: #5c7594;
+}
+.app .brand small {
+  font-size: 10px;
+}
+.app .brand p {
+  font-size: 12px;
+  margin-top: 2px;
+}
+.app .toolbar {
+  background: #f5f8ff;
+  padding: 7px 14px;
+  flex-wrap: nowrap;
+  gap: 10px;
+  border-color: #cbd9ec;
+}
+.app .toolbar > div {
+  border-color: #cbd9ec;
+  gap: 5px;
+  padding-right: 10px;
+}
+.app .toolbar button {
+  padding: 6px 9px;
+}
+.app .toolbar .assemble {
+  background: #2467d0;
+  border-color: #2467d0;
+  color: #fff;
+}
+.app .toolbar .assemble:hover {
+  background: #1855b5;
+}
+.app .toolbar .run {
+  background: #e7f0ff;
+  color: #174eaa;
+  border-color: #9dbbea;
+}
+.app kbd {
+  font-size: 10px;
+}
+.app .export-menu summary {
+  border-color: #c6d6eb;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .export-menu > div {
+  background: white;
+  border-color: #b9cde7;
+  box-shadow: 0 8px 28px #16396322;
+}
+.view-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.view-controls > span {
+  color: #5c7594;
+  font-size: 12px;
+}
+.view-controls button {
+  padding: 6px 10px;
+}
+.view-controls output {
+  min-width: 44px;
+  text-align: center;
+  font:
+    13px Consolas,
+    monospace;
+}
+.layout-menu {
+  position: relative;
+}
+.layout-menu summary {
+  padding: 7px 10px;
+  border: 1px solid #b9cde7;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #204d8c;
+}
+.layout-menu > div {
+  position: absolute;
+  z-index: 50;
+  right: 0;
+  top: 39px;
+  width: 300px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #bed1ec;
+  border-radius: 10px;
+  box-shadow: 0 10px 36px #24487333;
+  white-space: normal;
+}
+.layout-menu strong {
+  color: #204d8c;
+  font-size: 15px;
+}
+.layout-menu label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-top: 15px;
+  font-size: 13px;
+}
+.layout-menu input {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.layout-menu p {
+  font-size: 12px;
+  color: #5c7594;
+  line-height: 1.5;
+  margin: 14px 0;
+}
+.app .workspace {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(230px, var(--board-width)) minmax(
+      0,
+      1fr
+    ) minmax(270px, var(--inspector-width));
+  background: #cbd9ec;
+  border-color: #cbd9ec;
+}
+.app .workspace > aside,
+.app .workspace > main {
+  background: #fff;
+  min-height: 0;
+  min-width: 0;
+}
+.app .panel-heading {
+  height: 36px;
+  flex-shrink: 0;
+}
+.app .panel-heading select {
+  color: #244873;
+  background: #f5f8ff;
+  max-width: 56%;
+}
+.app .tag {
+  background: #eaf2ff;
+  border-color: #cadcf5;
+  color: #386295;
+  font-size: 10px;
+}
+.app .mint {
+  color: #1761ba !important;
+}
+.app .amber {
+  color: #98621e !important;
+}
+.app .hardware-column {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px 8px;
+  gap: 4px;
+  overflow: hidden;
+}
+.board-fit {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.board-fit-content {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 320px;
+  transform-origin: top center;
+}
+.app .pcb {
+  width: 320px;
+  max-width: none;
+  padding: 18px 20px 14px;
+  margin: 0;
+  font-size: 13px;
+}
+.app .pcb-title {
+  padding-bottom: 8px;
+}
+.app .board-caption {
+  margin: 7px 0;
+}
+.app .chip-row {
+  margin: 14px 0;
+}
+.app .dip-row {
+  margin: 10px 0;
+}
+.app .board-footer {
+  margin-top: 12px;
+}
+.app .lcd {
+  font-size: 17px;
+  padding: 8px;
+  line-height: 24px;
+}
+.app .hardware-tools {
+  padding-top: 3px;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.app .hardware-tools label {
+  color: #496788;
+  font-size: calc(12px * var(--text-scale));
+  margin: 0;
+}
+.app .hardware-tools select {
+  width: 52%;
+  font-size: calc(12px * var(--text-scale));
+  padding: 3px 5px;
+}
+.app .settings {
+  border-color: #ccdaeb;
+  color: #496788;
+  font-size: calc(12px * var(--text-scale));
+  margin-top: 4px;
+  padding-top: 6px;
+}
+.app .settings summary {
+  color: #365d8b;
+  font-size: calc(12px * var(--text-scale));
+}
+.hardware-column > .settings[open] {
+  max-height: 28%;
+  overflow: auto;
+  flex-shrink: 0;
+}
+.app .module-grid > div {
+  background: #f2f6fd;
+  color: #456589;
+  border-color: #b8cee8;
+}
+.app .module-grid small {
+  color: #61758e;
+  font-size: 10px;
+}
+.app .editor-column {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.app .source-tabs {
+  background: #f1f6fe;
+  border-color: #cbd9ec;
+  min-height: 33px;
+  flex-shrink: 0;
+}
+.app .source-tabs > div {
+  border-right-color: #cbd9ec;
+}
+.app .source-tabs > div.active {
+  background: #fff;
+  border-top-color: #2467d0;
+}
+.app .source-tabs button {
+  color: #557195;
+  background: transparent;
+  font-size: calc(12px * var(--text-scale));
+  padding: 7px;
+}
+.app .source-tabs .active button {
+  color: #184e9c;
+}
+.app .editor-wrap {
+  height: auto;
+  flex: var(--editor-share) 1 0px;
+  min-height: 0;
+  background: #fff;
+  overflow: hidden;
+}
+.app .source-editor,
+.app .cm-editor {
+  height: 100%;
+  min-height: 0;
+  background: #fff !important;
+  color: #203956;
+}
+.app .cm-scroller {
+  overflow: auto;
+  line-height: 1.55;
+}
+.app .cm-content {
+  caret-color: #1d5cc2;
+}
+.app .cm-gutters {
+  color: #7187a2;
+  background: #edf4fd;
+  border-right: 1px solid #d6e3f4;
+}
+.app .cm-activeLine,
+.app .cm-activeLineGutter {
+  background: #edf4ff;
+}
+.app .cm-cursor {
+  border-left-color: #1d5cc2;
+}
+.app .cm-focused .cm-selectionBackground,
+.app .cm-selectionBackground,
+.app .cm-content ::selection {
+  background: #c7ddff !important;
+}
+.app .cm-panels {
+  background: #edf4fd;
+  color: #203956;
+}
+.app .editor-status {
+  padding: 4px 10px;
+  background: #f3f7fd;
+  color: #577393;
+  border-color: #cbd9ec;
+  font-size: calc(11px * var(--text-scale));
+  flex-shrink: 0;
+}
+.app .subtabs {
+  border-color: #cbd9ec;
+  padding: 0 10px;
+  flex-shrink: 0;
+}
+.app .subtabs button {
+  font-size: calc(12px * var(--text-scale));
+  color: #557195;
+  padding: 8px 7px;
+  background: transparent;
+}
+.app .subtabs button.active {
+  color: #1859b8;
+  border-bottom-color: #2467d0;
+}
+.app .workbench-content {
+  height: auto;
+  min-height: 0;
+  flex: var(--listing-share) 1 0px;
+  padding: 8px 12px;
+  overflow: auto;
+  background: #fbfdff;
+}
+.app .table-label,
+.app .table-label span {
+  color: #52749b;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .listing {
+  font-size: calc(13px * var(--text-scale));
+}
+.app .listing th {
+  font-size: calc(11px * var(--text-scale));
+  color: #557195;
+  border-color: #cfdded;
+  padding: 6px;
+}
+.app .listing td {
+  color: #294763;
+  border-color: #e1e9f4;
+  padding: 6px;
+}
+.app .listing td:first-child {
+  color: #1760bc;
+}
+.app .listing td:nth-child(2) {
+  color: #8d5712;
+}
+.app .listing tr.current,
+.app .listing tbody tr:hover {
+  background: #e3efff;
+}
+.app .symbols > div {
+  background: #edf4fd;
+  color: #294763;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .symbols code {
+  color: #1859b8;
+}
+.app :where(.manual p, .tutorial p, .empty) {
+  color: #5a7391;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .tutorial label {
+  color: #365d8b;
+}
+.app .lesson-tabs .active {
+  color: #1859b8;
+  border-color: #2467d0;
+}
+.app .inspector-column {
+  display: block;
+  grid-column: auto;
+  padding: 0 12px 8px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b1c9e9 transparent;
+}
+.app .pc-display {
+  background: #edf4ff;
+  border-color: #b8d0f2;
+  padding: 8px 12px;
+}
+.app .pc-display span {
+  color: #456c9b;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .pc-display strong {
+  color: #1859b8;
+  font-size: calc(28px * var(--text-scale));
+}
+.app .pc-display strong small,
+.app .pulse-icon {
+  color: #6891c8;
+}
+.app .next-instruction {
+  padding: 6px 0;
+  margin-bottom: 6px;
+  border-color: #d2dfee;
+}
+.app .next-instruction > span {
+  color: #617e9d;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .next-instruction code {
+  color: #244873;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .registers {
+  gap: 4px;
+}
+.app .register {
+  padding: 5px 7px;
+  background: #f3f7fe;
+  border-color: #d2dfee;
+}
+.app .register span {
+  font-size: calc(10px * var(--text-scale));
+  color: #557195;
+  margin-bottom: 2px;
+}
+.app .register b {
+  font-size: calc(16px * var(--text-scale));
+  color: #1b426e;
+}
+.app .register.changed {
+  background: #dcecff;
+  border-color: #6d9cda;
+}
+.app .register.changed b {
+  color: #1254b3;
+}
+.app .binary-readout {
+  padding: 6px 0;
+  font-size: calc(10px * var(--text-scale));
+  color: #5c7594;
+}
+.app .binary-readout b {
+  color: #244873;
+  font-size: calc(12px * var(--text-scale));
+}
+.app .small-title {
+  color: #456c9b;
+  margin: 8px 0 5px;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .small-title > span {
+  color: #547cad;
+}
+.app .flags button {
+  padding: 4px 0;
+  background: #f1f6fe;
+  border-color: #c5d7ee;
+}
+.app .flags span {
+  color: #5c7594;
+  font-size: calc(10px * var(--text-scale));
+}
+.app .flags b {
+  color: #466c99;
+  margin-top: 2px;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .flags .set {
+  background: #d9e9ff;
+  border-color: #749fda;
+}
+.app .flags .set b {
+  color: #1254b3;
+}
+.app .sfr-details {
+  color: #496788;
+  font-size: calc(11px * var(--text-scale));
+  margin-top: 6px;
+}
+.app .sfr-details summary {
+  padding-bottom: 2px;
+}
+.app .sfr-details small {
+  color: #6b819b;
+  font-size: calc(10px * var(--text-scale));
+  padding-top: 2px;
+}
+.app .port-monitor > div {
+  padding: 4px 0;
+  gap: 8px;
+  border-color: #d8e3f1;
+}
+.app .port-monitor b,
+.app .port-monitor code span {
+  color: #5a7899;
+}
+.app .port-monitor code {
+  color: #244873;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .port-monitor button {
+  width: 12px;
+  height: 13px;
+  background: #edf4fd;
+  border-color: #b4c9e6;
+}
+.app .port-monitor button.high {
+  background: #4e8bdf;
+  border-color: #3c7dce;
+}
+.app .memory-controls {
+  margin-bottom: 4px;
+}
+.app .memory-controls select {
+  width: 76px;
+}
+.app .memory-grid,
+.app .memory-grid button {
+  color: #244873;
+  font-size: calc(12px * var(--text-scale));
+}
+.app .memory-grid th {
+  color: #607c9c;
+  font-size: calc(10px * var(--text-scale));
+  padding: 2px 0;
+}
+.app .memory-grid tr th:first-child {
+  color: #436992;
+}
+.app .memory-grid button {
+  padding: 2px;
+  background: transparent;
+}
+.app .memory-grid .changed {
+  background: #cee3ff;
+}
+.app .microcopy {
+  color: #5f7897;
+  font-size: calc(10px * var(--text-scale));
+  margin: 4px 0;
+}
+.app .watch code,
+.app .map-row code {
+  color: #1859b8;
+}
+.app .map-row {
+  color: #567393;
+  border-color: #cfdded;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .debugger {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #f7faff;
+  overflow: hidden;
+  border-top: 1px solid #cbd9ec;
+}
+.app .debugger-bar {
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  padding: 6px 14px;
+  gap: 12px;
+  min-height: 34px;
+  border-color: #cfdded;
+}
+.app .counters {
+  color: #5a7899;
+  font-size: calc(11px * var(--text-scale));
+  gap: 12px;
+}
+.app .counters b {
+  color: #244873;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .debugger-bar label {
+  color: #567393;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .debugger-bar label > span {
+  width: auto;
+  white-space: nowrap;
+}
+.app .debugger-grid {
+  min-height: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+}
+.app .debugger-grid > div {
+  height: auto;
+  min-height: 0;
+  padding: 8px 14px;
+  border-color: #cfdded;
+  overflow: auto;
+}
+.app .diagnostics pre {
+  color: #496788;
+  font-size: calc(12px * var(--text-scale));
+  line-height: 1.5;
+}
+.app .diagnostics pre > span {
+  color: #7896b8;
+}
+.app .trace-instruction,
+.app .trace-instruction code {
+  color: #557195;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .trace-instruction strong {
+  color: #1859b8;
+}
+.app .trace-instruction > span {
+  color: #647d9c;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .trace p,
+.app .trace details {
+  color: #496788;
+  font-size: calc(12px * var(--text-scale));
+}
+.app .trace-deltas > span {
+  color: #567393;
+  background: #e6f0ff;
+  font-size: calc(11px * var(--text-scale));
+}
+.app .trace-deltas b {
+  color: #1859b8;
+  font-size: calc(13px * var(--text-scale));
+}
+.app .history h3 span {
+  color: #7896b8;
+  font-size: 10px;
+}
+.app .history button {
+  color: #365d8b;
+  background: transparent;
+  border-color: #d7e3f3;
+  font-size: calc(12px * var(--text-scale));
+}
+.app .history code,
+.app .history small {
+  color: #5a7899;
+  font-size: calc(11px * var(--text-scale));
+}
+.app footer {
+  background: #eaf1fb;
+  color: #5d7797;
+  padding: 4px 14px;
+  font-size: 10px;
+  align-items: center;
+}
+@media (max-width: 1200px) {
+  .app .brand small,
+  .app .brand p {
+    display: none;
+  }
+  .app .toolbar button {
+    padding: 6px;
+  }
+  .app .toolbar {
+    gap: 5px;
+    padding: 6px 8px;
+  }
+  .app .toolbar > div {
+    padding-right: 5px;
+    gap: 3px;
+  }
+  .app kbd {
+    display: none;
+  }
+  .app .counters {
+    gap: 6px;
+  }
+  .app .debugger-bar input {
+    width: 65px;
+  }
+}
+@media (max-height: 800px) {
+  .app {
+    grid-template-rows: 52px 44px minmax(0, 1fr) minmax(
+        80px,
+        min(var(--desk-height), 18vh)
+      ) 20px;
+  }
+  .app .brand-icon {
+    width: 34px;
+    height: 34px;
+    line-height: 29px;
+    font-size: 28px;
+  }
+  .app .panel-heading {
+    height: 32px;
+  }
+}
+@media (max-width: 900px) {
+  .app .workspace {
+    grid-template-columns: 220px minmax(260px, 1fr) 270px;
+    overflow-x: auto;
+  }
+  .app .brand h1 {
+    font-size: 18px;
+  }
+  .app .view-controls {
+    gap: 3px;
+  }
+  .app .toolbar {
+    overflow-x: auto;
+  }
+  .app .debugger-bar .counters span:last-child {
+    display: none;
+  }
+}

@@ -1,0 +1,15 @@
+; P2 phase output exercise. Physical motor/driver model is unavailable.
+ORG 0
+LOOP: MOV P2,#09H
+LCALL DELAY
+MOV P2,#0CH
+LCALL DELAY
+MOV P2,#06H
+LCALL DELAY
+MOV P2,#03H
+LCALL DELAY
+SJMP LOOP
+DELAY: MOV R0,#200
+WAIT: DJNZ R0,WAIT
+RET
+END
